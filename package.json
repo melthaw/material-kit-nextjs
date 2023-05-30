@@ -11,12 +11,19 @@
     "start": "next start",
     "export": "next export",
     "lint": "next lint",
-    "lint-fix": "next lint --fix"
+    "lint-fix": "next lint --fix",
+    "type-check": "tsc --pretty --noEmit",
+    "check-all": "yarn type-check && yarn lint"
   },
   "engines": {
     "node": "16",
     "npm": "This project uses yarn, not npm.",
     "yarn": "1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix --cache"
+    ]
   },
   "dependencies": {
     "@emotion/cache": "11.10.5",
@@ -59,6 +66,17 @@
     "@types/react-dom": "18.0.11",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import-alias": "^1.2.0",
+    "eslint-plugin-jest-dom": "^3.8.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-rulesdir": "^0.2.0",
+    "eslint-plugin-testing-library": "^4.1.2",
     "prisma": "^4.14.1",
     "typescript": "5.0.4"
   }
