@@ -39,4 +39,53 @@ Others
 
 Distributed under the MIT License. See [LICENSE](https://github.com/melthaw/nextjs-mui-boilerplate/blob/main/LICENSE.md) for more information.
 
+## Developer Guide
+
+### Prisma
+
+Format the prisma schema
+
+> npx prisma format
+
+Generate the prisma client
+
+> npx prisma generate
+
+Type Mapping
+
+| Prisma	  | MongoDB|
+|----------|---|
+| String	  | string|
+| Boolean	 | bool|
+| Int	     | int|
+| BigInt	  |long|
+| Float	   |double|
+| Decimal  |	Currently unsupported|
+| DateTime |	timestamp|
+| Date     |	date|
+| Bytes    |	binData|
+|Json | |
+
+
+MongoDB types that are currently unsupported:
+
+* Decimal128
+* Undefined
+* DBPointer
+* Null
+* Symbol
+* MinKey
+* MaxKey
+* Object
+* Javascript
+* JavascriptWithScope
+* Regex
+
+Mongodb Object Mapping Example
+
+```
+model Example {
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+}
+```
 
