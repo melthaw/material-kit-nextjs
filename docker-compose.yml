@@ -1,19 +1,19 @@
 version: '3.7'
 services:
 
-  mongo:
-    container_name: mongo
+  # uri: mongodb://admin:material-kit-nextjs-secret@localhost:27017/material-kit-nextjs?retryWrites=true&authSource=admin
+  mongo_4_sample:
+    container_name: mongo_4_sample
     image: mongo
     ports:
       - "27017:27017"
-    command: mongod
     environment:
-      MONGO_INITDB_DATABASE: nextjs-mui-kit
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: nextjs-mui-kit-secret
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: material-kit-nextjs-secret
+    command: mongod
 
-  redis:
-    container_name: redis
+  redis_4_sample:
+    container_name: redis_4_sample
     image: redis:alpine
     ports:
       - "6379:6379"

@@ -10,15 +10,16 @@ generator client {
 
 model User {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  username          String   @unique
-  email             String   @unique
-  firstName         String
-  lastName          String
-  gender            String
+  username          String?   @unique
+  password          String?
+  email             String?   @unique
+  firstName         String?
+  lastName          String?
+  gender            String?
   locked            Boolean  @default(false)
   roles             String[]
   createdAt         DateTime @default(now())
-  createdById       String
-  createdByUsername String
+  createdById       String?
+  createdByUsername String?
   latestModifiedAt  DateTime @updatedAt
 }
