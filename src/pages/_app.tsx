@@ -4,10 +4,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { AuthConsumer, AuthProvider } from 'src/contexts/auth-context';
-import { useNProgress } from 'src/hooks/use-nprogress';
-import { createTheme } from 'src/theme';
-import { createEmotionCache } from 'src/utils/create-emotion-cache';
+import { AuthConsumer, AuthProvider } from '@/contexts/auth-context';
+import { useNProgress } from '@/hooks/use-nprogress';
+import { createTheme } from '@/theme';
+import { createEmotionCache } from '@/utils/create-emotion-cache';
 import 'simplebar-react/dist/simplebar.min.css';
 import { SessionProvider } from 'next-auth/react';
 
@@ -36,21 +36,28 @@ const App = (props) => {
           content='initial-scale=1, width=device-width'
         />
       </Head>
+      {/*<LocalizationProvider dateAdapter={AdapterDateFns}>*/}
+      {/*  <AuthProvider>*/}
+      {/*    <ThemeProvider theme={theme}>*/}
+      {/*      <CssBaseline />*/}
+      {/*      <AuthConsumer>*/}
+      {/*        {*/}
+      {/*          (auth) => auth.isLoading*/}
+      {/*            ? <SplashScreen />*/}
+      {/*            : getLayout(<Component {...pageProps} />)*/}
+      {/*        }*/}
+      {/*      </AuthConsumer>*/}
+      {/*    </ThemeProvider>*/}
+      {/*</LocalizationProvider>*/}
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <SessionProvider session={session}>
-
-          <AuthProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <AuthConsumer>
-                {
-                  (auth) => auth.isLoading
-                    ? <SplashScreen />
-                    : getLayout(<Component {...pageProps} />)
-                }
-              </AuthConsumer>
-            </ThemeProvider>
-          </AuthProvider>
+        <SessionProvider session={session}
+refetchInterval={10 * 60}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {
+              getLayout(<Component {...pageProps} />)
+            }
+          </ThemeProvider>
         </SessionProvider>
       </LocalizationProvider>
     </CacheProvider>

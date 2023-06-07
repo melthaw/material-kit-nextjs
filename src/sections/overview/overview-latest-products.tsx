@@ -17,12 +17,17 @@ import {
   SvgIcon
 } from '@mui/material';
 
+interface OverviewLatestProductsProps {
+  products?: any[];
+  sx?: object;
+}
+
 export const OverviewLatestProducts = (props) => {
   const { products = [], sx } = props;
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Latest Products" />
+      <CardHeader title='Latest Products' />
       <List>
         {products.map((product, index) => {
           const hasDivider = index < products.length - 1;
@@ -38,7 +43,7 @@ export const OverviewLatestProducts = (props) => {
                   product.image
                     ? (
                       <Box
-                        component="img"
+                        component='img'
                         src={product.image}
                         sx={{
                           borderRadius: 1,
@@ -65,7 +70,7 @@ export const OverviewLatestProducts = (props) => {
                 secondary={`Updated ${ago} ago`}
                 secondaryTypographyProps={{ variant: 'body2' }}
               />
-              <IconButton edge="end">
+              <IconButton edge='end'>
                 <SvgIcon>
                   <EllipsisVerticalIcon />
                 </SvgIcon>
@@ -77,23 +82,18 @@ export const OverviewLatestProducts = (props) => {
       <Divider />
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button
-          color="inherit"
+          color='inherit'
           endIcon={(
-            <SvgIcon fontSize="small">
+            <SvgIcon fontSize='small'>
               <ArrowRightIcon />
             </SvgIcon>
           )}
-          size="small"
-          variant="text"
+          size='small'
+          variant='text'
         >
           View all
         </Button>
       </CardActions>
     </Card>
   );
-};
-
-OverviewLatestProducts.propTypes = {
-  products: PropTypes.array,
-  sx: PropTypes.object
 };

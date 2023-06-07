@@ -1,9 +1,12 @@
-import PropTypes from 'prop-types';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import ClockIcon from '@heroicons/react/24/solid/ClockIcon';
 import { Avatar, Box, Card, CardContent, Divider, Stack, SvgIcon, Typography } from '@mui/material';
 
-export const CompanyCard = (props) => {
+interface CompanyCardProps {
+  company: object;
+}
+
+export const CompanyCard = (props: CompanyCardProps) => {
   const { company } = props;
 
   return (
@@ -24,19 +27,19 @@ export const CompanyCard = (props) => {
         >
           <Avatar
             src={company.logo}
-            variant="square"
+            variant='square'
           />
         </Box>
         <Typography
-          align="center"
+          align='center'
           gutterBottom
-          variant="h5"
+          variant='h5'
         >
           {company.title}
         </Typography>
         <Typography
-          align="center"
-          variant="body1"
+          align='center'
+          variant='body1'
         >
           {company.description}
         </Typography>
@@ -44,46 +47,46 @@ export const CompanyCard = (props) => {
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
       <Stack
-        alignItems="center"
-        direction="row"
-        justifyContent="space-between"
+        alignItems='center'
+        direction='row'
+        justifyContent='space-between'
         spacing={2}
         sx={{ p: 2 }}
       >
         <Stack
-          alignItems="center"
-          direction="row"
+          alignItems='center'
+          direction='row'
           spacing={1}
         >
           <SvgIcon
-            color="action"
-            fontSize="small"
+            color='action'
+            fontSize='small'
           >
             <ClockIcon />
           </SvgIcon>
           <Typography
-            color="text.secondary"
-            display="inline"
-            variant="body2"
+            color='text.secondary'
+            display='inline'
+            variant='body2'
           >
             Updated 2hr ago
           </Typography>
         </Stack>
         <Stack
-          alignItems="center"
-          direction="row"
+          alignItems='center'
+          direction='row'
           spacing={1}
         >
           <SvgIcon
-            color="action"
-            fontSize="small"
+            color='action'
+            fontSize='small'
           >
             <ArrowDownOnSquareIcon />
           </SvgIcon>
           <Typography
-            color="text.secondary"
-            display="inline"
-            variant="body2"
+            color='text.secondary'
+            display='inline'
+            variant='body2'
           >
             {company.downloads} Downloads
           </Typography>
@@ -91,8 +94,4 @@ export const CompanyCard = (props) => {
       </Stack>
     </Card>
   );
-};
-
-CompanyCard.propTypes = {
-  company: PropTypes.object.isRequired
 };

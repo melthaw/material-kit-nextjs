@@ -12,7 +12,7 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-import { Chart } from 'src/components/chart';
+import { Chart } from '@/components/chart';
 
 const useChartOptions = (labels) => {
   const theme = useTheme();
@@ -80,25 +80,31 @@ const iconMap = {
   )
 };
 
-export const OverviewTraffic = (props) => {
+interface OverviewTrafficProps {
+  chartSeries: any[];
+  labels: any[];
+  sx?: object;
+}
+
+export const OverviewTraffic = (props: OverviewTrafficProps) => {
   const { chartSeries, labels, sx } = props;
   const chartOptions = useChartOptions(labels);
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Traffic Source" />
+      <CardHeader title='Traffic Source' />
       <CardContent>
         <Chart
           height={300}
           options={chartOptions}
           series={chartSeries}
-          type="donut"
-          width="100%"
+          type='donut'
+          width='100%'
         />
         <Stack
-          alignItems="center"
-          direction="row"
-          justifyContent="center"
+          alignItems='center'
+          direction='row'
+          justifyContent='center'
           spacing={2}
           sx={{ mt: 2 }}
         >
@@ -117,13 +123,13 @@ export const OverviewTraffic = (props) => {
                 {iconMap[label]}
                 <Typography
                   sx={{ my: 1 }}
-                  variant="h6"
+                  variant='h6'
                 >
                   {label}
                 </Typography>
                 <Typography
-                  color="text.secondary"
-                  variant="subtitle2"
+                  color='text.secondary'
+                  variant='subtitle2'
                 >
                   {item}%
                 </Typography>
@@ -134,10 +140,4 @@ export const OverviewTraffic = (props) => {
       </CardContent>
     </Card>
   );
-};
-
-OverviewTraffic.propTypes = {
-  chartSeries: PropTypes.array.isRequired,
-  labels: PropTypes.array.isRequired,
-  sx: PropTypes.object
 };

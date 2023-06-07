@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import PropTypes from 'prop-types';
 import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
 import {
   Box,
@@ -15,8 +14,8 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
-import { Scrollbar } from 'src/components/scrollbar';
-import { SeverityPill } from 'src/components/severity-pill';
+import { Scrollbar } from '@/components/scrollbar';
+import { SeverityPill } from '@/components/severity-pill';
 
 const statusMap = {
   pending: 'warning',
@@ -24,12 +23,17 @@ const statusMap = {
   refunded: 'error'
 };
 
-export const OverviewLatestOrders = (props) => {
+interface OverviewLatestOrdersProps {
+  orders?: any[];
+  sx?: object;
+}
+
+export const OverviewLatestOrders = (props: OverviewLatestOrdersProps) => {
   const { orders = [], sx } = props;
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Latest Orders" />
+      <CardHeader title='Latest Orders' />
       <Scrollbar sx={{ flexGrow: 1 }}>
         <Box sx={{ minWidth: 800 }}>
           <Table>
@@ -41,7 +45,7 @@ export const OverviewLatestOrders = (props) => {
                 <TableCell>
                   Customer
                 </TableCell>
-                <TableCell sortDirection="desc">
+                <TableCell sortDirection='desc'>
                   Date
                 </TableCell>
                 <TableCell>
@@ -82,23 +86,18 @@ export const OverviewLatestOrders = (props) => {
       <Divider />
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button
-          color="inherit"
+          color='inherit'
           endIcon={(
-            <SvgIcon fontSize="small">
+            <SvgIcon fontSize='small'>
               <ArrowRightIcon />
             </SvgIcon>
           )}
-          size="small"
-          variant="text"
+          size='small'
+          variant='text'
         >
           View all
         </Button>
       </CardActions>
     </Card>
   );
-};
-
-OverviewLatestOrders.prototype = {
-  orders: PropTypes.array,
-  sx: PropTypes.object
 };

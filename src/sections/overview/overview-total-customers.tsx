@@ -1,10 +1,16 @@
-import PropTypes from 'prop-types';
 import ArrowDownIcon from '@heroicons/react/24/solid/ArrowDownIcon';
 import ArrowUpIcon from '@heroicons/react/24/solid/ArrowUpIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
 
-export const OverviewTotalCustomers = (props) => {
+interface OverviewTotalCustomersProps {
+  difference?: number;
+  positive?: boolean;
+  value: string;
+  sx?: object;
+}
+
+export const OverviewTotalCustomers = (props: OverviewTotalCustomersProps) => {
   const { difference, positive = false, sx, value } = props;
 
   return (
@@ -76,11 +82,3 @@ export const OverviewTotalCustomers = (props) => {
     </Card>
   );
 };
-
-OverviewTotalCustomers.propTypes = {
-  difference: PropTypes.number,
-  positive: PropTypes.bool,
-  value: PropTypes.string.isRequired,
-  sx: PropTypes.object
-};
-

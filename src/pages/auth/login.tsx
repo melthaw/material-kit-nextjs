@@ -16,8 +16,9 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { useAuth } from 'src/hooks/use-auth';
-import { Layout as AuthLayout } from 'src/layouts/auth/layout';
+import { useAuth } from '@/hooks/use-auth';
+import { Layout as AuthLayout } from '@/layouts/auth/layout';
+import { signIn } from 'next-auth/react';
 
 const Page = () => {
   const router = useRouter();
@@ -42,8 +43,24 @@ const Page = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        await auth.signIn(values.email, values.password);
-        router.push('/');
+        // await auth.signIn(values.email, values.password);
+        // router.push('/');
+
+        // call next-auth signIn (credentials provider)
+        const res = await signIn('credentials', {
+          redirect: false,
+          email: values.email,
+          password: values.password,
+          callbackUrl: `${window.location.origin}`,
+        });
+        console.log(res);
+        // if (res?.error) {
+        //   setError(res.error);
+        // } else {
+        //   setError(null);
+        // }
+        if (res.url) router.push(res.url);
+        setSubmitting(false);
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });

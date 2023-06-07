@@ -14,10 +14,26 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { Scrollbar } from 'src/components/scrollbar';
-import { getInitials } from 'src/utils/get-initials';
+import { Scrollbar } from '@/components/scrollbar';
+import { getInitials } from '@/utils/get-initials';
 
-export const CustomersTable = (props) => {
+type Func = (...args: any[]) => any;
+
+interface CustomersTableProps {
+  count?: number;
+  items?: any[];
+  onDeselectAll?: Func;
+  onDeselectOne?: Func;
+  onPageChange?: Func;
+  onRowsPerPageChange?: Func;
+  onSelectAll?: Func;
+  onSelectOne?: Func;
+  page?: number;
+  rowsPerPage?: number;
+  selected?: any[];
+}
+
+export const CustomersTable = (props: CustomersTableProps) => {
   const {
     count = 0,
     items = [],
@@ -42,7 +58,7 @@ export const CustomersTable = (props) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                <TableCell padding='checkbox'>
                   <Checkbox
                     checked={selectedAll}
                     indeterminate={selectedSome}
@@ -83,7 +99,7 @@ export const CustomersTable = (props) => {
                     key={customer.id}
                     selected={isSelected}
                   >
-                    <TableCell padding="checkbox">
+                    <TableCell padding='checkbox'>
                       <Checkbox
                         checked={isSelected}
                         onChange={(event) => {
@@ -97,14 +113,14 @@ export const CustomersTable = (props) => {
                     </TableCell>
                     <TableCell>
                       <Stack
-                        alignItems="center"
-                        direction="row"
+                        alignItems='center'
+                        direction='row'
                         spacing={2}
                       >
                         <Avatar src={customer.avatar}>
                           {getInitials(customer.name)}
                         </Avatar>
-                        <Typography variant="subtitle2">
+                        <Typography variant='subtitle2'>
                           {customer.name}
                         </Typography>
                       </Stack>
@@ -129,7 +145,7 @@ export const CustomersTable = (props) => {
         </Box>
       </Scrollbar>
       <TablePagination
-        component="div"
+        component='div'
         count={count}
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
@@ -139,18 +155,4 @@ export const CustomersTable = (props) => {
       />
     </Card>
   );
-};
-
-CustomersTable.propTypes = {
-  count: PropTypes.number,
-  items: PropTypes.array,
-  onDeselectAll: PropTypes.func,
-  onDeselectOne: PropTypes.func,
-  onPageChange: PropTypes.func,
-  onRowsPerPageChange: PropTypes.func,
-  onSelectAll: PropTypes.func,
-  onSelectOne: PropTypes.func,
-  page: PropTypes.number,
-  rowsPerPage: PropTypes.number,
-  selected: PropTypes.array
 };

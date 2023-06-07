@@ -11,7 +11,7 @@ import {
   SvgIcon
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Chart } from 'src/components/chart';
+import { Chart } from '@/components/chart';
 
 const useChartOptions = () => {
   const theme = useTheme();
@@ -104,7 +104,12 @@ const useChartOptions = () => {
   };
 };
 
-export const OverviewSales = (props) => {
+interface OverviewSalesProps {
+  chartSeries: any[];
+  sx?: object;
+}
+
+export const OverviewSales = (props: OverviewSalesProps) => {
   const { chartSeries, sx } = props;
   const chartOptions = useChartOptions();
 
@@ -151,9 +156,4 @@ export const OverviewSales = (props) => {
       </CardActions>
     </Card>
   );
-};
-
-OverviewSales.protoTypes = {
-  chartSeries: PropTypes.array.isRequired,
-  sx: PropTypes.object
 };
