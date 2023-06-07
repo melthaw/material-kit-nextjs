@@ -1,7 +1,15 @@
 import { ReactNodeLike } from 'prop-types';
 import { styled } from '@mui/material/styles';
 
-const SeverityPillRoot = styled('span')(({ theme, ownerState }) => {
+interface SeverityPillRootProps {
+  ownerState?: any;
+}
+
+const SeverityPillRoot = styled('span', {
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+  slot: 'Root',
+  name: 'SeverityPillRoot',
+})<SeverityPillRootProps>(({ theme, ownerState }) => {
   const backgroundColor = theme.palette[ownerState.color].alpha12;
   const color = theme.palette.mode === 'dark'
     ? theme.palette[ownerState.color].main
