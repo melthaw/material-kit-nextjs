@@ -8,7 +8,15 @@ import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
 
-export const items = [
+interface Item {
+  title: string;
+  path: string;
+  icon: JSX.Element;
+  disabled?: boolean;
+  external?: boolean;
+}
+
+export const items: Item[] = [
   {
     title: 'Overview',
     path: '/',

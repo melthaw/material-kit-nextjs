@@ -1,20 +1,25 @@
 import NextLink from 'next/link';
-import { ReactNodeLike } from 'prop-types';
 import { Box, ButtonBase } from '@mui/material';
 
 interface SideNavItemProps {
   active?: boolean;
   disabled?: boolean;
   external?: boolean;
-  icon?: ReactNodeLike,
+  icon?: any,
   path?: string;
   title: string;
+}
+
+interface LinkProps {
+  component?: string;
+  href?: string;
+  target?: string;
 }
 
 export const SideNavItem = (props: SideNavItemProps) => {
   const { active = false, disabled, external, icon, path, title } = props;
 
-  const linkProps = path
+  const linkProps: LinkProps = path
     ? external
       ? {
         component: 'a',

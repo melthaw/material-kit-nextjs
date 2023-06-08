@@ -1,4 +1,3 @@
-import PropTypes, { ReactNodeLike } from 'prop-types';
 import NextLink from 'next/link';
 import { Box, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import { Logo } from '@/components/logo';
@@ -6,7 +5,7 @@ import { Logo } from '@/components/logo';
 // TODO: Change subtitle text
 
 interface LayoutProps {
-  children: ReactNodeLike;
+  children: any;
 }
 
 export const Layout = (props: LayoutProps) => {

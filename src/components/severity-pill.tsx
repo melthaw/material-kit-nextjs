@@ -1,4 +1,3 @@
-import { ReactNodeLike } from 'prop-types';
 import { styled } from '@mui/material/styles';
 
 interface SeverityPillRootProps {
@@ -8,7 +7,7 @@ interface SeverityPillRootProps {
 const SeverityPillRoot = styled('span', {
   shouldForwardProp: (prop) => prop !== 'ownerState',
   slot: 'Root',
-  name: 'SeverityPillRoot',
+  name: 'SeverityPillRoot'
 })<SeverityPillRootProps>(({ theme, ownerState }) => {
   const backgroundColor = theme.palette[ownerState.color].alpha12;
   const color = theme.palette.mode === 'dark'
@@ -39,8 +38,8 @@ const SeverityPillRoot = styled('span', {
 });
 
 interface SeverityPill {
-  children: ReactNodeLike,
-  color:
+  children?: any,
+  color?:
     'primary' |
     'secondary' |
     'error' |

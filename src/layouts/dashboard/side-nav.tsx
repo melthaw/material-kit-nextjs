@@ -8,7 +8,7 @@ import {
   Divider,
   Drawer,
   Stack,
-  SvgIcon,
+  SvgIcon, Theme,
   Typography,
   useMediaQuery
 } from '@mui/material';
@@ -25,7 +25,7 @@ interface SideNavProps {
 export const SideNav = (props: SideNavProps) => {
   const { open, onClose } = props;
   const pathname = usePathname();
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
   const content = (
     <Scrollbar

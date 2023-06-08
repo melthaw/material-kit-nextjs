@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
-import PropTypes from 'prop-types';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -56,12 +55,23 @@ const reducer = (state, action) => (
 );
 
 // The role of this context is to propagate authentication state through the App tree.
+interface IAuthContext {
+  isAuthenticated?: boolean;
+  skip?: () => void;
+  signIn?: (email, password) => void;
+  signUp?: (email, name, password) => void;
+  signOut?: () => void;
+}
 
-export const AuthContext = createContext({ undefined });
+export const AuthContext = createContext<IAuthContext>({  });
+
+interface AuthProviderProps {
+  children?: any;
+}
 
 export const AuthProvider = (props) => {
   const { children } = props;
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState, null);
   const initialized = useRef(false);
 
   const initialize = async () => {
@@ -174,10 +184,6 @@ export const AuthProvider = (props) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-AuthProvider.propTypes = {
-  children: PropTypes.node
 };
 
 export const AuthConsumer = AuthContext.Consumer;
