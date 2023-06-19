@@ -8,7 +8,7 @@ import {
   Box,
   IconButton,
   Stack,
-  SvgIcon,
+  SvgIcon, Theme,
   Tooltip,
   useMediaQuery
 } from '@mui/material';
@@ -25,7 +25,7 @@ interface TopNavProps {
 
 export const TopNav = (props: TopNavProps) => {
   const { onNavOpen } = props;
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
   const accountPopover = usePopover();
 
   return (

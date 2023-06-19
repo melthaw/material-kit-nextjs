@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { CacheProvider } from '@emotion/react';
+import { CacheProvider, EmotionCache } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CssBaseline } from '@mui/material';
@@ -15,7 +15,13 @@ const clientSideEmotionCache = createEmotionCache();
 
 const SplashScreen = () => null;
 
-const App = (props) => {
+interface  AppProps {
+  Component?: any;
+  emotionCache?: EmotionCache;
+  pageProps?: any;
+}
+
+const App = (props: AppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const { session } = pageProps;
 

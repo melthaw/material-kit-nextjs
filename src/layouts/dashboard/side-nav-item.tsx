@@ -1,5 +1,6 @@
 import NextLink from 'next/link';
 import { Box, ButtonBase } from '@mui/material';
+import Link from 'next/dist/client/link';
 
 interface SideNavItemProps {
   active?: boolean;
@@ -11,7 +12,7 @@ interface SideNavItemProps {
 }
 
 interface LinkProps {
-  component?: string;
+  component?: string | any;
   href?: string;
   target?: string;
 }
