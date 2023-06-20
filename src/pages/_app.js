@@ -9,10 +9,24 @@ import { useNProgress } from 'src/hooks/use-nprogress';
 import { createTheme } from 'src/theme';
 import { createEmotionCache } from 'src/utils/create-emotion-cache';
 import 'simplebar-react/dist/simplebar.min.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const clientSideEmotionCache = createEmotionCache();
 
 const SplashScreen = () => null;
+
+const queryClient = new QueryClient({
+  //disable auto refetch & retry , handle it manually in the component
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retryOnMount: false,
+      retry: false
+    },
+    mutations: {}
+  }
+});
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -30,23 +44,25 @@ const App = (props) => {
           Devias Kit
         </title>
         <meta
-          name="viewport"
-          content="initial-scale=1, width=device-width"
+          name='viewport'
+          content='initial-scale=1, width=device-width'
         />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <AuthConsumer>
-              {
-                (auth) => auth.isLoading
-                  ? <SplashScreen />
-                  : getLayout(<Component {...pageProps} />)
-              }
-            </AuthConsumer>
-          </ThemeProvider>
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <AuthConsumer>
+                {
+                  (auth) => auth.isLoading
+                    ? <SplashScreen />
+                    : getLayout(<Component {...pageProps} />)
+                }
+              </AuthConsumer>
+            </ThemeProvider>
+          </AuthProvider>
+        </QueryClientProvider>
       </LocalizationProvider>
     </CacheProvider>
   );
