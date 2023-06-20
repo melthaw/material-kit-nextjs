@@ -4,25 +4,31 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { AuthConsumer, AuthProvider } from '@/contexts/auth-context';
 import { useNProgress } from '@/hooks/use-nprogress';
 import { createTheme } from '@/theme';
 import { createEmotionCache } from '@/utils/create-emotion-cache';
 import 'simplebar-react/dist/simplebar.min.css';
 import { SessionProvider } from 'next-auth/react';
+import { AppProps } from 'next/app';
+import { NextPage } from 'next';
+import { ReactElement, ReactNode } from 'react';
 
 const clientSideEmotionCache = createEmotionCache();
 
 const SplashScreen = () => null;
 
-interface  AppProps {
-  Component?: any;
-  emotionCache?: EmotionCache;
-  pageProps?: any;
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
 }
 
-const App = (props: AppProps) => {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+  emotionCache?: EmotionCache;
+  session?: any;
+}
+
+const App = (props: AppPropsWithLayout) => {
+  const { Component, emotionCache = clientSideEmotionCache, ...pageProps } = props;
   const { session } = pageProps;
 
   useNProgress();
@@ -56,8 +62,7 @@ const App = (props: AppProps) => {
       {/*    </ThemeProvider>*/}
       {/*</LocalizationProvider>*/}
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <SessionProvider session={session}
-refetchInterval={10 * 60}>
+        <SessionProvider session={session} refetchInterval={10 * 60}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             {
