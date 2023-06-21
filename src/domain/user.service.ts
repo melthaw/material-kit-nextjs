@@ -16,10 +16,20 @@ export async function createUser(username: string, email: string, password: stri
 }
 
 // Get a user by ID
+export async function getUserByUsername(username: string): Promise<User | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      username
+    }
+  });
+  return user;
+}
+
+// Get a user by ID
 export async function getUserById(userId: string): Promise<User | null> {
   const user = await prisma.user.findUnique({
     where: {
-      id: userId
+      username: userId
     }
   });
   return user;

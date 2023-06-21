@@ -1,12 +1,17 @@
-import { createHandler, Get, Req } from '@storyofams/next-api-decorators';
-import { getUserById } from '@/domain/user.service';
-import { NextApiRequest } from 'next';
+import { createHandler, Get, Req, Catch } from '@storyofams/next-api-decorators';
+import { getUserById, getUserByUsername } from '@/domain/user.service';
+import type { NextApiRequest } from 'next';
+import { exceptionHandler } from '@/pages/_app/api-middleware';
 
+@Catch(exceptionHandler)
 class UserHandler {
   @Get()
   async test(@Req() req: NextApiRequest) {
-    await getUserById('test-id');
-    return {};
+    const result = await  getUserByUsername('test12345678');
+    if (!result) {
+      throw new Error('User not found');
+    }
+    return result;
   }
 }
 

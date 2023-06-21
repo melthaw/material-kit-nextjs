@@ -10,6 +10,7 @@ import { createTheme } from 'src/theme';
 import { createEmotionCache } from 'src/utils/create-emotion-cache';
 import 'simplebar-react/dist/simplebar.min.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ClientOnly } from '@/pages/_app/ClientOnly';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -50,18 +51,20 @@ const App = (props) => {
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <AuthConsumer>
-                {
-                  (auth) => auth.isLoading
-                    ? <SplashScreen />
-                    : getLayout(<Component {...pageProps} />)
-                }
-              </AuthConsumer>
-            </ThemeProvider>
-          </AuthProvider>
+          <ClientOnly>
+            <AuthProvider>
+              <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <AuthConsumer>
+                  {
+                    (auth) => auth.isLoading
+                      ? <SplashScreen />
+                      : getLayout(<Component {...pageProps} />)
+                  }
+                </AuthConsumer>
+              </ThemeProvider>
+            </AuthProvider>
+          </ClientOnly>
         </QueryClientProvider>
       </LocalizationProvider>
     </CacheProvider>
