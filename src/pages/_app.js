@@ -31,6 +31,7 @@ const queryClient = new QueryClient({
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const { session } = pageProps;
 
   useNProgress();
 
@@ -49,24 +50,26 @@ const App = (props) => {
           content='initial-scale=1, width=device-width'
         />
       </Head>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <QueryClientProvider client={queryClient}>
-          <ClientOnly>
-            <AuthProvider>
-              <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <AuthConsumer>
-                  {
-                    (auth) => auth.isLoading
-                      ? <SplashScreen />
-                      : getLayout(<Component {...pageProps} />)
-                  }
-                </AuthConsumer>
-              </ThemeProvider>
-            </AuthProvider>
-          </ClientOnly>
-        </QueryClientProvider>
-      </LocalizationProvider>
+      <SessionProvider session={session}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <QueryClientProvider client={queryClient}>
+            <ClientOnly>
+              <AuthProvider>
+                <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  <AuthConsumer>
+                    {
+                      (auth) => auth.isLoading
+                        ? <SplashScreen />
+                        : getLayout(<Component {...pageProps} />)
+                    }
+                  </AuthConsumer>
+                </ThemeProvider>
+              </AuthProvider>
+            </ClientOnly>
+          </QueryClientProvider>
+        </LocalizationProvider>
+      </SessionProvider>
     </CacheProvider>
   );
 };
